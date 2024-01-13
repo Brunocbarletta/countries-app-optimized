@@ -18,6 +18,10 @@ const routes: Routes = [
     component: ContactPageComponent
   },
   {
+    path: 'countries',
+    loadChildren: () => import('./countries/countries.module').then(module => module.CountriesModule) //Lazy load del countries modules (El modulo de paises)
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }
