@@ -20,7 +20,7 @@ const routes: Routes = [
     component: ByRegionPageComponent
   },
   {
-    path: 'by-/:id', //query param
+    path: 'by-code/:id', //query param
     component: CountryPageComponent
   },
   {
