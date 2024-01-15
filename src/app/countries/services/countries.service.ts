@@ -15,7 +15,7 @@ export class CountriesService {
     return this.http.get<Country[]>(url)
     .pipe(
       catchError((_err: HttpErrorResponse) => of<Country[]>([])),
-      delay(1000)
+      // delay(1000) //Este delay quedo obsoleto tras implementar el 'debounce' en shared-search-box
     );
   }
 
