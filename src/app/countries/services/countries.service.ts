@@ -14,7 +14,7 @@ export class CountriesService {
 
   public cacheStore: CacheStore = {
     byCapital: {term: '', countries: []},
-    byRegion: {term: '', countries: []},
+    byRegion: {region: '', countries: []},
     byCountries: {term: '', countries: []}
   };
 
@@ -23,7 +23,7 @@ export class CountriesService {
   private getCountriesRequest(url: string): Observable<Country[]> {
     return this.http.get<Country[]>(url)
     .pipe(
-      catchError((_err: HttpErrorResponse) => of<Country[]>([])),
+      catchError((_err: HttpErrorResponse) => of<Country[]>([]))
       // delay(1000) //Este delay quedo obsoleto tras cambiar el evento por (keyup) e implementar el 'debounce' en shared-search-box
     );
   }
@@ -47,12 +47,18 @@ export class CountriesService {
 
   searchCountry(term: string):  Observable<Country[]> {
     const url = `${this.apiUrl}/name/${term}`;
-    return this.getCountriesRequest(url);
+    return this.getCountriesRequest(url)
+    .pipe(
+      tap((countries) => { this.cacheStore.byCountries = {term, countries}})
+    );
   }
   
-  searchRegion(region: string):  Observable<Country[]> {
+  searchRegion(region: Region):  Observable<Country[]> {
     const url = `${this.apiUrl}/region/${region}`;
-    return this.getCountriesRequest(url);
+    return this.getCountriesRequest(url)
+    .pipe(
+      tap((countries) => { this.cacheStore.byRegion = {region, countries}})
+    );
   }
 }
 
