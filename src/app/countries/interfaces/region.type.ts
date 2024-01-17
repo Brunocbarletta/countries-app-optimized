@@ -1,1 +1,1 @@
-export type Region = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Ocenia' | '';
+export type Region = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania' | '';
